@@ -16,7 +16,7 @@ abstract class MyList2[+A] {
   def ++[B>:A](list: MyList2[B]): MyList2[B]
 }
 
-object Empty extends MyList2[Nothing]{
+case object Empty extends MyList2[Nothing]{
   override def head: Nothing = throw new NoSuchElementException
   override def tail: MyList2[Nothing] = throw new NoSuchElementException
   override def isEmpty: Boolean = true
@@ -30,7 +30,7 @@ object Empty extends MyList2[Nothing]{
   override def ++[B >: Nothing](list: MyList2[B]): MyList2[B] = list
 }
 
-class Cons[+A](h: A, t: MyList2[A]) extends MyList2[A]{
+case class Cons[+A](h: A, t: MyList2[A]) extends MyList2[A]{
   override def head: A = h
   override def tail: MyList2[A] = t
   override def isEmpty: Boolean = false
