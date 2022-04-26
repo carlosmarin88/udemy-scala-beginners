@@ -121,4 +121,13 @@ object ListTest extends App{
 
   listOfIntegers.foreach((elem) => println("Element " + elem))
   anotherListOfIntegers.foreach((elem) => println("Element " + elem))
+
+  println("for-comprehensions")
+  val combinations = for {
+    n <- listOfIntegers
+    string <- listOfStrings
+  } yield n + "-" + string
+
+  println(combinations)
+
 }
