@@ -43,4 +43,37 @@ object TuplesAndMaps extends App {
   println(List(("Daniel", 555)).toMap)
   val names = List("Bob", "James", "Angela", "Mary", "Daniel", "Jim")
   println(names.groupBy(name => name.charAt(0)))
+
+  println(Map(("Jim", 555), "JIM" -> 789)
+    .map(pair => pair._1.toLowerCase -> pair._2))
+
+  def add(network: Map[String, Set[String]], person: String) = {
+    network + (person -> Set())
+  }
+
+  def friend(network: Map[String, Set[String]], personA: String, personB: String) = {
+    val friendsA = network(personA)
+    val friendsB = network(personB)
+
+    network + (personA -> (friendsA + personB)) + (friendsB -> (friendsB + personA))
+  }
+
+  def unfriend(network: Map[String, Set[String]], a: String, b: String) = {
+
+    val friendsA = network(a)
+    val friendsB = network(b)
+    network + (a -> (friendsA - b)) + (b -> (friendsB - a))
+  }
+
+  def remove(network: Map[String, Set[String]], person: String) = {
+
+    def removeAux(friends: Set[String], networkAcc: Map[String, Set[String]]): Map[String, Set[String]] = {
+      if(friends.isEmpty) network
+      else removeAux(friends.tail, unfriend(networkAcc, person, friends.head))
+    }
+    val unfriends = removeAux(network(person), network)
+    unfriends - person
+  }
+
 }
+
