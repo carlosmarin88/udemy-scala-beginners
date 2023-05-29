@@ -79,12 +79,12 @@ object PatterMatching extends App {
     case Number(n) => s"$n"
     case Sum(e1, e2) => s"${show(e1)} + ${show(e2)}"
     case Prod(e1,e2) =>
-      def maybeShowParantheses(exp: Expr) = exp match {
+      def maybeShowParentheses(exp: Expr) = exp match {
         case Prod(_, _) => show(exp)
         case Number(_) => show(exp)
         case _ => s"(${show(exp)})"
       }
-      maybeShowParantheses(e1) + " * " + maybeShowParantheses(e2)
+      maybeShowParentheses(e1) + " * " + maybeShowParentheses(e2)
   }
   println(show(Sum(Number(2), Number(3))))
   println(show(Sum(Sum(Number(2), Number(3)), Number(4))))
